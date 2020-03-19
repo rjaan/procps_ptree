@@ -2,7 +2,7 @@
 up to date list about contributions.**
 
 > $ git clone https://github.com/rjaan/procps_ptree.git
-> # cd procps_ptree
+> $ cd procps_ptree
 > $ git log
 > 
 
