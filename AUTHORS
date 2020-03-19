@@ -1,0 +1,12 @@
+This file is no longer supported.  Please see git log for the most
+up to date list about contributions.
+
+$ git clone https://github.com/rjaan/procps_ptree.git
+# cd procps_ptree
+$ git shortlog --no-merges -sne 
+
+-- Old credits ---
+
+man-pages:
+procps_ptree:
+Andrey Y. Rzhavskov <rjaan@yandex.ru>

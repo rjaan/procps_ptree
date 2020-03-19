@@ -9,7 +9,7 @@
 	[procps_ptree on narod.ru](http://rjaan.narod.ru/projects/procps_ptree.html)
 
   About procps-ng
-        [a link](https://gitlab.com/procps-ng/procps/-/blob/master/README.md)
+        [procps-ng](https://gitlab.com/procps-ng/procps/-/blob/master/README.md)
 
 Comments are welcome.
 
