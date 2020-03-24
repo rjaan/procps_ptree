@@ -28,7 +28,7 @@ addons:
   coverity_scan:
     project:
       name: "rjaan/procps_ptree"
-      description: "<Your project description here>"
+      description: "procps_ptree - shows inforamtion of executed process and task"
     notification_email: rjaan@yandex.ru
     build_command_prepend: "./configure"
     build_command: "make"
