@@ -9,7 +9,7 @@ os: linux
 dist: boinic
 
 #The COVERITY_SCAN_BRANCH environment variable will be set to 1 when the Coverity Scan addon is in operation.
-script: if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then ./configure && make ; fi
+# script: if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then ./configure && make ; fi
 
 env:
   global:
