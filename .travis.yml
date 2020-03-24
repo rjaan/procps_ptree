@@ -8,11 +8,14 @@ os: linux
 
 dist: boinic
 
+#The COVERITY_SCAN_BRANCH environment variable will be set to 1 when the Coverity Scan addon is in operation.
+script: if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then ./configure && make ; fi
+
 env:
   global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
    #   via the "travis encrypt" command using the project repo's public key
-   - secure: "d3sjcams1F6ex1Kv5My6cOSC4Gtd1i9RuoAbdoLbNnL9GwFbMmHddOwoZMCadr6VrgbIDcgMd2Jgqogr3eONV9JHsOFrlUklvxlWxkMnsMzzCquITKB8pCYj3lzriy9PuP/jkuSA0+nwTFPpUFyKuraXKNH+sLOSSBAgDsBtoQRuRxeMiWiRDhHb75qP0uhRL8Sl3PqLh5ZW9ZUrdIgckTE1AAc4wMvVpDn9Yujv9JQVi+PEV7q8KUzF+1t+oM88c+IrpHipV/EjOeqbzYhD1AoyfKvI+s3Ix8O6FQST/zYBF5oOvIFzrJcvD5+0Il/KHlZxDzjO+TR18ynZ3iKD37eytwZ/r9RG5U1wygu3Ihgaug4a4X0iqOD35FEs4TQ6AyPciT2AI1AzNU8SPQGNdtRnB2wPijcIY8yQNzNu8UBWHGxm/1zT5Ug2QVLBptG8OW6nJowczcyFyv+FGY0DyvVqU7JqWQb2P64YO5oSamFADpYggXZOssI9DqXeiDp5h+iwspyQCrz2hT0vyn5LibTdYQ2OVjl0rs+dmk5fg5Jq0UYfOaFqwi9PeTzbC/aKft4PHyCIto1BBmZsrwhdh91TDOfpq/rkrUPY1/IhdPMyWnsNgc8uIBky70NlszsaxjIY7YMVjoNwn21+gbDzuNjCUJoc9UEy0BZnY02JLRI="
+   - secure: "jUjMuVhYXafgl8o5XJ7a/MRTNgoCE0nkXq4mAY0/wcJLSrh3TxaHii3UZlmPsY5DfXvVn2pPXzi4yu+T8zZMDAtABJNHXvvywBf82y0YPQVWodDlqSHJjSrXJfA6Nd+lExN6V+Ij4iIjXUqZafcxWWBACt6Z7sS0wB4dpu7TBjslXx8X+pi5+sRmqfrZsMo8WN3v+xfcHUkOct6w3vS4MUA7/wOfiw794k8jTqCqF2R+jAutYo4eN03n0Bb61nMKCBqMFfvn4x1cnK4aH7+radbzP6fU+6CSW1BGBhVZAAiVPfeCZOe381TJxfyWtV7g0wrmc+0gnu7PNwgHVpwGht8NKgkqeNsaGDDBY0jlSFPc4c1Swr42GJ0dAUmpYI5rvpOHT/fCP+r26yHwJGti3zuIqEJG46mDWck3ShtCjwDJ99SjR0yBVxROFMTh8F9Ott2gBHLjKE371B8CjiOeAdwtA59VyRa6ISTH9cUzkGeT/LfP68G8kMjz06C2BetkyOzFCO6acD+06fSEvAG1WvAPyXVauHiooQnvXKD9jUcC1RfLpo+heRLz+WVr4mNP6ZTq8VVw6pUMfQYPYH3lPTldowbLNBkfRgRc9WPgl/0ZENBwxg/A+I3DL6+pfbSgcHxAxaKPWIBLJfHA7x0BZi+k+NDO3WaHKNGqsDtJB0g="
 
 before_install:
   - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
@@ -27,3 +30,5 @@ addons:
     build_command_prepend: "./configure"
     build_command: "make"
     branch_pattern: coverity_scan
+
+#eof
