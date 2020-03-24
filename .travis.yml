@@ -5,3 +5,11 @@ compiler: gcc
 cache: ccache
 
 os: linux
+
+dist: boinic
+
+before_install:
+  - sudo apt-get -y install libprocps-dev
+addons:
+  apt:
+    update: true
