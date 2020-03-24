@@ -30,6 +30,6 @@ addons:
       name: "rjaan/procps_ptree"
       description: "<Your project description here>"
     notification_email: rjaan@yandex.ru
-    build_command_prepend: "<Your build preprocessing command here>"
-    build_command: "<Your build command here>"
+    build_command_prepend: "./configure"
+    build_command: "make"
     branch_pattern: coverity_scan    
