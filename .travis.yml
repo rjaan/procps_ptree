@@ -14,4 +14,38 @@ addons:
   apt:
     update: true
 
-script: ./configure && make
+#The COVERITY_SCAN_BRANCH environment variable will be set to 1 when the Coverity Scan addon is in operation.
+script: if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then ./configure && make ; fi
+
+env:
+  global:
+    # COVERITY_SCAN_TOKEN
+    # ** specific to your project **
+    - secure: "zgRa1spf6dGQUEljbeyVBw"
+    
+addons:
+  coverity_scan:
+
+    # GitHub project metadata
+    # ** specific to your project **
+    project:
+      name: rjaan/procps_ptree
+      version: 1.3
+      description: procps_ptree is modified source code of project procps-ng
+
+    # Where email notification of build analysis results will be sent
+    notification_email: scan_notifications@example.com
+
+    # Commands to prepare for build_command
+    # ** likely specific to your build **
+    build_command_prepend: ./configure
+
+    # The command that will be added as an argument to "cov-build" to compile your project for analysis,
+    # ** likely specific to your build **
+    build_command: make
+
+    # Pattern to match selecting branches that will run analysis. We recommend leaving this set to 'coverity_scan'.
+    # Take care in resource usage, and consider the build frequency allowances per
+    #   https://scan.coverity.com/faq#frequency
+    branch_pattern: coverity_scan
+    
