@@ -1,5 +1,10 @@
 # procps_ptree - shows inforamtion of executed process and  task
 
+<a href="https://scan.coverity.com/projects/rjaan-procps_ptree">
+  <img alt="Coverity Scan Build Status"
+       src="https://scan.coverity.com/projects/20648/badge.svg"/>
+</a>
+
   _Copyright (C) 2012-2020 Andrey Y. Rzhavskov_
 
   **procps_ptree** is modified source code of project [procps-ng](https://gitlab.com/procps-ng/procps) and  demonstrates some 
