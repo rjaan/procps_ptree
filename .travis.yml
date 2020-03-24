@@ -8,44 +8,28 @@ os: linux
 
 dist: boinic
 
-before_install:
-  - sudo apt-get -y install libprocps-dev
-addons:
-  apt:
-    update: true
-
 #The COVERITY_SCAN_BRANCH environment variable will be set to 1 when the Coverity Scan addon is in operation.
 script: if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then ./configure && make ; fi
 
 env:
   global:
-    # COVERITY_SCAN_TOKEN
-    # ** specific to your project **
-    - secure: "zgRa1spf6dGQUEljbeyVBw"
-    
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "q/ZKS6aVB9NrlQnJZ8V+mcp18SB7hY1SDpJz5M5fbCDhwi5NCWzxk6fP1nSTK9DfY/ntcpUOJcpIZnqvlv4KVv93RO93jTUFZT1EcS0gelhmZkLk/NBuryT6JN+2h4e0FeMzpqZ0dBghtQrT0ZK6JPNLfFEpAVlcsdOizpuAo+NGr32jOk0mnz7kCPNrecR4f+dIMNWAkzY+Z7yFjokR1VJY/rw3mRNFLGUAcdSUfj7z7u8Dusj4ebjxG8A2q1XrWkCYGWdls6WpXgGV5T66TpQoVjwfqXTvEApx9dKwzS1pqI+a1K+wMJ39orvPUVMEbPy2pM7W7OpSkn/LSt74sEYz04tYrWvU1I0k8NmY+/evvF+/tUPjwSn3HRV1EFcNJbxcxhJ7EwhuuD1kPAsyjmcThKHAHn8qyhX0wXjoHryQwM84zPYq+kB4aTl/gZuS6Hy+i6JVegIAFXvPBxPOoxKX4BJhRuGva/QnZTkz3gcsvGh+iMZ74nhuiTTQMhGQd39xHN8IbzYFft62dA6Io1qajX0tknV0muQ5jfRDRBa0jlVgTEylEqmSzH9mHWthkYO9XEygUVfhIAOgVG4QRmytkoOfTAZaHzYieoa73ygdFwFH2JeJYQEjuaLlJ5EKYCRcmGWVT32TrTCOsVZJ2jc/w3I1BEoiEda8K9Qdcp4="
+
+before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+  - sudo apt-get -y install libprocps-dev
+addons:
+     apt:
+        update: true
+
 addons:
   coverity_scan:
-
-    # GitHub project metadata
-    # ** specific to your project **
     project:
-      name: rjaan/procps_ptree
-      version: 1.3
-      description: procps_ptree is modified source code of project procps-ng
-
-    # Where email notification of build analysis results will be sent
+      name: "rjaan/procps_ptree"
+      description: "<Your project description here>"
     notification_email: rjaan@yandex.ru
-
-    # Commands to prepare for build_command
-    # ** likely specific to your build **
-    build_command_prepend: ./configure
-
-    # The command that will be added as an argument to "cov-build" to compile your project for analysis,
-    # ** likely specific to your build **
-    build_command: make
-
-    # Pattern to match selecting branches that will run analysis. We recommend leaving this set to 'coverity_scan'.
-    # Take care in resource usage, and consider the build frequency allowances per
-    #   https://scan.coverity.com/faq#frequency
-    branch_pattern: coverity_scan
-    
+    build_command_prepend: "<Your build preprocessing command here>"
+    build_command: "<Your build command here>"
+    branch_pattern: coverity_scan    
