@@ -58,6 +58,11 @@ main ( int argc, char **argv )
   int 		   retval  = EXIT_SUCCESS;
   proc_data_t*     pd_p  = NULL;
   int              parent; 
+
+  to_show_help      ^= to_show_help;
+  to_show_version   ^= to_show_version;
+  to_use_loose_task ^= to_use_loose_task;
+  to_show_with_pid  ^= to_show_with_pid;
   
   if ( (retval=cmdline_opts_parser ( argc, argv, 
 				  	   &to_show_help,
@@ -75,6 +80,7 @@ main ( int argc, char **argv )
        help_message();
        exit(0);
   }
+
   if ( to_show_version ) {
        VERSION_BANER();
        exit(0);
@@ -111,18 +117,18 @@ main ( int argc, char **argv )
   parent = pd_p->n;
   while ( parent-- ) {
      int subparent = pd_p->n;
-     while ( subparent-- ) {	
+     while ( subparent-- ) {
          if ( processes[subparent]->XXXID == processes[parent]->ppid ) {
 	    goto not_root;
          }
      }
      show_tree ( parent, pd_p->n, 0, 0, 0 ); 
 not_root:
-	  ;
+	 ;
   }
      
 close_proctab:
-
+  
   procps_tab_close ( pd_p );
 
   if ( !glvar_to_show_only_pids )
@@ -244,35 +250,32 @@ static proc_data_t* procps_tab_open ( void )
 static void procps_tab_close ( proc_data_t	 *pd_p )
 {   
    unsigned long      address_min = 0UL;
-   proc_t             *data_p     = NULL;
-   unsigned int       ntab        = pd_p->n;
-   proc_t             **tab_pp    = pd_p ? pd_p->tab : NULL;
-
-   while ( tab_pp && ntab-- ) {
-     proc_t   *p = tab_pp[ntab];   
-     if ( !address_min ) {
+   if ( pd_p ) {
+     unsigned int       ntab        = pd_p->n;
+     proc_t             **tab_pp    = pd_p ? pd_p->tab : NULL;
+     proc_t             *data_p     = NULL;
+     while ( tab_pp && ntab-- ) {
+       proc_t   *p = tab_pp[ntab];   
+       if ( !address_min ) {
 	   address_min = (unsigned long)p;
-     }
-     if( (unsigned long)p < address_min ) {
+       }
+       if( (unsigned long)p < address_min ) {
 	    address_min = (unsigned long)p;  
 	    data_p = p;	
-     }
+       }
 
-     if( !(flag & PROC_LOOSE_TASKS) && p->cmdline )
+       if( !(flag & PROC_LOOSE_TASKS) && p->cmdline )
 		free((void*)*p->cmdline);
-     if (p->environ)
+       if (p->environ)
 		free((void*)*p->environ);
-   }
-   
-   if ( data_p ) {
+     }
+     if ( data_p ) {
       pd_p->n = 0;
       pd_p->ntask = 0;
       pd_p->nproc = 0;
-      free ( data_p );	
-      free ( pd_p );
+     }
+     closeproc( proctab_p ); 
    }
-   
-   closeproc( proctab_p ); 
 }
 
 CMP_SMALL(ppid);
@@ -329,7 +332,6 @@ static int procps_plist_sort ( proc_data_t 	*pd_p )
 static void show_tree ( const int self, const int n, const int level, const int have_sibling, int is_fill ) 
 {
     int 	i=0;
-    proc_t 	task; 
     int 	to_fill = is_fill;
     
     if( !to_fill ) {
@@ -340,13 +342,20 @@ static void show_tree ( const int self, const int n, const int level, const int 
 
     show_one_proc( processes[self], level, to_fill );
 
-    if ( !to_use_loose_task )
-      while ( readtask ( proctab_p, processes[self], &task ) ) {
-	     if( task.tid == task.tgid ) continue; /* this is my process */
-
-	     show_one_proc( &task, level+1, to_fill );	
-      }
-   
+    if ( !to_use_loose_task ) {
+      proc_t 	*task; 
+      while ( readtask ( proctab_p, processes[self], task ) ) 
+        {
+	     if ( task )
+	      {
+	        if( task->tid == task->tgid ) continue; /* this is my process */
+		show_one_proc( task, level+1, to_fill );
+		free(task);
+	        task=NULL; 
+	      }
+        } 
+      
+    }
     i=0;	
     for (; i < n; i++ ) {
 	int have_brother = 0;

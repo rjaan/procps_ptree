@@ -128,9 +128,9 @@ static int globalvar_by_get_option_name ( const char buf[],
 
 
 /*
-   cmdline_opts_parser() parses  command-line options  that were  passed    into 
-			 2nd argument and initializes global variables that were
-			 passed since 3rd argument.
+   cmdline_opts_parser() parses  command-line options is passed in 
+			 2nd argument and initializes global variables is since
+			 passed 3rd argument.
  	
 		     	 On success, this function  returns  a number of options 
 		         were recognized. Otherwise, it returns negative value.
@@ -168,17 +168,18 @@ int cmdline_opts_parser ( const int argc, char * const *argv,
             const char *ptr = *p_argv_go;
             snprintf( optkey, 16, "key%02X", *(ptr+1) );       
         }
-	if ( ( ptr - *p_argv_go ) > 3 )	{	
-	   snprintf( optkey, 16, "key%02d", (ptr-*p_argv_go)-3 );
+	if ( ( ptr - *p_argv_go ) > 3 )	{
+	   snprintf( optkey, 16, "key%02X", (ptr-*p_argv_go)-3 );
         }
+
 	if( globalvar_by_get_option_name ( optkey, 
-						 to_show_help,
-					         to_show_version,
-					  	 to_use_loose_task,
-			  			 to_use_csv_format,
-			  			 to_show_only_pids,
-			  			 dont_resolve_name,
-			  			 to_show_with_pid  ) < 0 ) {
+					      to_show_help,
+					      to_show_version,
+					      to_use_loose_task,
+			  		      to_use_csv_format,
+			  		      to_show_only_pids,
+			  		      dont_resolve_name,
+			  		      to_show_with_pid  ) < 0 ) {
 	     OPTION_NOTFOUND();
 	     n_parsed_opts = -1;
 	     goto out;
