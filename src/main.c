@@ -252,8 +252,8 @@ static void procps_tab_close ( proc_data_t	 *pd_p )
    unsigned long      address_min = 0UL;
    if ( pd_p ) {
      unsigned int       ntab        = pd_p->n;
-     proc_t             **tab_pp    = pd_p ? pd_p->tab : NULL;
-     proc_t             *data_p     = NULL;
+     proc_t             **tab_pp    = pd_p->tab ? pd_p->tab : (proc_t **)NULL;
+     proc_t             *data_p     = (proc_t *)NULL;
      while ( tab_pp && ntab-- ) {
        proc_t   *p = tab_pp[ntab];   
        if ( !address_min ) {
@@ -346,13 +346,18 @@ static void show_tree ( const int self, const int n, const int level, const int 
       proc_t 	*task = NULL ; 
       while ( readtask ( proctab_p, processes[self], task ) ) 
         {
+#if 0 
 	     if ( task != NULL )
 	      {
-	        if( task->tid == task->tgid ) continue; /* this is my process */
-		show_one_proc( task, level+1, to_fill );
+#endif /* try to fix CWE-561 so variable task will never become value NULL  */
+	        if( task->tid != task->tgid ) { /* this isn't my process */
+		  show_one_proc( task, level+1, to_fill );
+		}
 		free(task);
 	        task=NULL; 
+#if 0 
 	      }
+#endif /* try to fix CWE-561 so variable task will never become value NULL*/
         } 
       
     }
