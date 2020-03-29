@@ -15,7 +15,7 @@ env:
   global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
    #   via the "travis encrypt" command using the project repo's public key
-   - secure: "O9w2/QeqjbS01YwJei6LQ03Txb2r2WnjS2AyNZJUQP2ehjv4UxcWapK9MjUHkBtypvU6pUJXGg0K89G/l6Noex214WBGL0duG35SZ5/QOakpBvO0R7VUC8yRzjZMKnPDL3ZHMOfecgMrVAMxd1Ib/JXq8pqckbby7jrfDwO8AS4oTvMcju42O6Xxj30qCSU9KFa+bcqyu9iwcxKKBztfqb7s6exmCrqdGdbp+j/PNsW/bzl6g7jkA4hNPWIhzIStRR3Cuo+/9m/3zQJb0gLso5CYSfMm2AlUyAb8Hi924i7F5o7RQQ+GFLYp3r5DyH2mKD1DJJsJnfC9dLOKVXJUNkAH5eplEqDoTqdFPWeCtHHpozcSawi0aglACi6IBnPP3qxgVwmqV8UnIK6JkRI3TsW8QPECV6xqTSRKyrECHBKcXFw0iyZy5CoIhtbEtzMNjcW9IG6fSOrjvs9cXK3v8IVdDzs7437Tc8YdMY7sF3IZfwjR7+RfgIlCbxB8iVi5pm2tMfos2d3An6l/J9yxHp/X8rU2pJ2CrUTSWWFKSm+ozPhLQMA4n4YgMOctKKAJo2GQF4iCStrM3fcC5vL1FrSAd6IJieOQ7+eboior+2YWwtg3DYBMTh7h07zvfvDcegrRQCvD1WlzXVn+kIjqVWdQ7C7u3sVvAgtUguqBS6w="
+   - secure: "Vd37292PjqOkSVX9u4LkOk4XnMqM8Wmi/tq8ulTdIOekiHwtX/eA+BO8jeCjXnPdqFt22/nP9onamkFTSZJJi8mES7//HjsdyTIJ+ToMvcSkmzjDFmhJuJG069+7nNJVQbvVfDnJwLqS1O3hpqtsILasZcQ7FxpDZj36Ckm8hSAZiLEPm4ZFa0hrE21/xueO5GH6maVT6f7MOsBJ0IdLg0QWDUw4vyKUXFBjgWiA2gGvBtsetBD94zeVj5aDDKpxblCvWt2d6l6DOHpkTI4u6uL5QX6Yn3IqXRZMVmrE0oC63f6nE2i5sws5z/CamH0jtkOR/J6RluGj9fiPFinRlO5qap86P93ha3DSlM8dDJrT0FEacPnwI83PBrdRCvu2bZtQeArWQEa7A4KX3qpZATRVwaq3eHbv+NQgmnmaeXdki3eNp4vxKVHRIoKWMjP50Xp89xuDeQQv3dlpQ1NrID7PlD3rMQrEJ4r4r6HZicIMYXtxyT2q9xVRROfY0YFGTLY2W+IJ2dlnRwQd1F/BF7Y7Zm654tgMoGWgmgJM3LxHKaX4n1QPGWJsq91abNwgFk1awOMPZ0VYd33C5c4Di94Utn6funFPmoSN5uUHnu+Ek+b0jtX9/pJpxS2GvhkJR9uS03ZYNlRHD9nOTOsJxg1KTKlc8G3BmV29VL79dPY="
 
 before_install:
   - sudo apt-get -y install libprocps-dev
@@ -31,6 +31,6 @@ addons:
        notification_email: rjaan@yandex.ru
        build_command_prepend: "./configure"
        build_command: "make"
-       branch_pattern: procps_ptree_1.4
+       branch_pattern: coverity_scan
 
 #eof
