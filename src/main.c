@@ -343,10 +343,10 @@ static void show_tree ( const int self, const int n, const int level, const int 
     show_one_proc( processes[self], level, to_fill );
 
     if ( !to_use_loose_task ) {
-      proc_t 	*task; 
+      proc_t 	*task = NULL ; 
       while ( readtask ( proctab_p, processes[self], task ) ) 
         {
-	     if ( task )
+	     if ( task != NULL )
 	      {
 	        if( task->tid == task->tgid ) continue; /* this is my process */
 		show_one_proc( task, level+1, to_fill );
