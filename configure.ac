@@ -16,7 +16,7 @@
 ##  along with this program; if not, write to the Free Software
 ##  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
-AC_INIT([procps_ptree], [1.5], [rjaan@yandex.ru])
+AC_INIT([procps_ptree], [1.4], [rjaan@yandex.ru])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_MACRO_DIR([m4])
 # Checks for programs.
