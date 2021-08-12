@@ -182,7 +182,7 @@ int cmdline_opts_parser ( const int argc, char * const *argv,
 			  		      to_show_with_pid  ) < 0 ) {
 	     OPTION_NOTFOUND();
 	     n_parsed_opts = -1;
-	     goto out;
+	     goto err;
 	 }
          if ( *to_show_with_pid != to_show_with_pid_old ) {
            int boolean_value = (int)(*(++p_argv_go) == NULL);
@@ -204,6 +204,8 @@ int cmdline_opts_parser ( const int argc, char * const *argv,
     }	   
 out:
     return  EXIT_SUCCESS;
+err:
+    return  EXIT_FAILURE;
  }
 
 /*eof*/

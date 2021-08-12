@@ -71,9 +71,9 @@ main ( int argc, char **argv )
 					   &glvar_to_use_csv_format,
 					   &glvar_to_show_only_pids,
 					   &glvar_dont_resolve_name,
-					   &to_show_with_pid   )) < 0 ) {
+					   &to_show_with_pid   )) != EXIT_SUCCESS ) {
      help_message();
-     exit(retval);
+     exit(EXIT_FAILURE);
   }
  
   if ( to_show_help ) {
