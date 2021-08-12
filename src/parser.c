@@ -126,7 +126,7 @@ static int globalvar_by_get_option_name ( const char buf[],
 #define ARGUMENT_NOTFOUND(NAME)\
  printf ( "%s: \'%s\' option required argument\n", *argv, NAME )
 
-
+#include <ctype.h>
 /*
    cmdline_opts_parser() parses  command-line options is passed in 
 			 2nd argument and initializes global variables is since
