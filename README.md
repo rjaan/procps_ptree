@@ -8,7 +8,7 @@
    _Copyright (C) 2012-2020 Andrey Y. Rzhavskov_
 
   **procps_ptree** is modified source code of project [procps-ng](https://gitlab.com/procps-ng/procps) and  demonstrates some 
-  features which library procps provides in its own APIs. This program is written in learning purposes only. 
+  features which library procps provides in its own APIs. This program was written in learning purposes only. 
 
   Home's page (on Rusian language):
 	[procps_ptree on narod.ru](http://rjaan.narod.ru/projects/procps_ptree.html)

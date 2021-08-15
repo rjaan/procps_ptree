@@ -60,11 +60,11 @@ static int globalvar_by_get_option_name ( const char buf[],
  static const jump_table_struct_t jump_table[] = { /* the table of jump labels */
 	{ "key04",     &&case_longHelp },    /* long option --help */
 	{ "key07",     &&case_longVersion },  /* long option --version */
-	{ "key10",     &&case_longLooseTask },  /* long option --loose-task */
-	{ "key13",     &&case_longShowWithPid  }, /* long option --show-with-pid */
-	{ "key14",     &&case_longShowOnlyPids }, /* long option --show-only-pids*/
-	{ "key15",     &&case_longCsvFormat }, /* long option --csv-format-file  */
-	{ "key16",     &&case_longNotResolvedName }, /* long option --not-resolve-name */
+	{ "key0A",     &&case_longLooseTask },  /* long option --loose-task */
+	{ "key0D",     &&case_longShowWithPid  }, /* long option --show-with-pid */
+	{ "key0E",     &&case_longShowOnlyPids }, /* long option --show-only-pids*/
+	{ "key0F",     &&case_longCsvFormat }, /* long option --csv-format-file  */
+	{ "key10",     &&case_longNotResolvedName }, /* long option --not-resolve-name */
         { "key56",     &&case_longVersion }, /* short option -V same as long option --version */
         { "key63",     &&case_longCsvFormat }, /* short option -c same as long option --csv-format-file */
         { "key68",     &&case_longHelp }, /* short option -h same as long option --help */
@@ -126,7 +126,7 @@ static int globalvar_by_get_option_name ( const char buf[],
 #define ARGUMENT_NOTFOUND(NAME)\
  printf ( "%s: \'%s\' option required argument\n", *argv, NAME )
 
-
+#include <ctype.h>
 /*
    cmdline_opts_parser() parses  command-line options is passed in 
 			 2nd argument and initializes global variables is since
@@ -172,6 +172,9 @@ int cmdline_opts_parser ( const int argc, char * const *argv,
 	   snprintf( optkey, 16, "key%02X", (ptr-*p_argv_go)-3 );
         }
 
+#ifdef __DEBUG__
+        printf ( "%s: \"%s\" -> \'%s\'\n", __FUNCTION__, *p_argv_go,  optkey );
+#endif /*__DEBUG__*/
 	if( globalvar_by_get_option_name ( optkey, 
 					      to_show_help,
 					      to_show_version,
@@ -182,7 +185,7 @@ int cmdline_opts_parser ( const int argc, char * const *argv,
 			  		      to_show_with_pid  ) < 0 ) {
 	     OPTION_NOTFOUND();
 	     n_parsed_opts = -1;
-	     goto out;
+	     goto err;
 	 }
          if ( *to_show_with_pid != to_show_with_pid_old ) {
            int boolean_value = (int)(*(++p_argv_go) == NULL);
@@ -204,6 +207,8 @@ int cmdline_opts_parser ( const int argc, char * const *argv,
     }	   
 out:
     return  EXIT_SUCCESS;
+err:
+    return  EXIT_FAILURE;
  }
 
 /*eof*/
