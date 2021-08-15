@@ -10,3 +10,7 @@ src/.deps/*
 src/Makefile
 src/*.o
 src/procps_ptree
+.travis.yml~
+.gitignore~
+.*~
+src/.*~
