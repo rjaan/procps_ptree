@@ -16,7 +16,7 @@ env:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
    #   via the "travis encrypt" command using the project repo's public key
    - secure: "21UftQvkWoO3/XkRechL6UZcU7Mag0t8SXzU6KxZ3Qij96L8fbBtmsgdtpzNRQIezLF2G+SEcp/OkiSLhx1kEcAe3stl4S994vRq8zlFpPLj/z77R2HTTCmEISxK2QnYajVW5v+kJ25mJFijP9yFc9knTPMOw6LvjFmoy+/o2PwTmemuC6z8mlljJaMHPJJ4KpJMIr+nNpaizB85E0xQj2lOt1Qg6KZLDVeMxXxy1cVUBl1bbu21ym+XE8l3ntr+lksMgJm5/p+wfNBfo8lxYQVQU1q91gVQzRhHP9hKQNJiNBsypQ/p83oY9mGBD273JsmHjXO3LudO8cFDRmmgc8EMbX11x7TuA8L9Sfv1nejI7JDzjQXFFqWwk6pr8gnkgeKvdZpYER0ViejaaSir9pDb7kxKSfibaEbOHsdtcqrbiHUs7K3hRTAOZ7Rh0ScMtp3hK8FedH5DEsMGEwp88ID4qz0KQLg5AahXMPoZssLEKim7Bd+jNFUb49xrR9PeezkuYcUa+2oE0QJm6URWcKeQcGyUCewvXmWEhBzKDwDaT93zzPEE1a/u3jNOTF8st+rW4tJVw6mBszUwaY93Evb/0d5EpdHc2VuHJxfVp6H4yWi++37fku4dFBNZz36VVUz9xQLX/A71bn7le/NtAwISGPkh8uHzKszNdeJ2G90="
-   
+
 before_install:
   - sudo apt-get -y install libprocps-dev
   - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
