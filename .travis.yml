@@ -1,0 +1,37 @@
+language: c
+
+compiler: gcc
+
+cache: ccache
+
+os: linux
+
+dist: boinic
+
+#The COVERITY_SCAN_BRANCH environment variable will be set to 1 when the Coverity Scan addon is in operation.
+script: if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then ./configure && make ; fi
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "B/JGYVPBjsaFSaEhSYMRZD01xxFmNPeEuv/h8d9a2rQY9foFryek1MDdwHjkj3NT/XU3N4c24YHn0kPnT8RNpHQcU9ujPtJEdJ3epmB9fErya2pLuL4pN1ZSlLxNAwZ9cFytyPXr3+MjMwJuhy2B2tZJM42gtK9yGcewxcnuI5HPTMZRsJxPrUbGvNn//NBZaXr8smwFh19tPqsQlojbzFwpZjrgeUus8oOma44PNjroOhgIv0ZKGvJxGC3G765kxf0rZv+lzmJbPSfb0Li/PWEACQgV/gjWi5QPKHclYs9A080UOct6jOvwSssAP9Khx+s11Kvj3fERSm9i3z12vthjHrG0ss5JEFIta/vjiFmdjaaLe4bm31AriwlXk0fFh0Wl2c6zLPYjcBhMZo15PRsPhxZpjtAhZEyF4VL6S3Svk8bOsxbGONNVyrXeBSc4+2LObEwgsAMymYZX4X8L1RhVLmjAhII5PEtxGi0ZYweART5b2Mox23zXwPb550wRMFyM7bRS4i3w6Ds8H/UBsgitrpSjB/zg33DbakT+mlck2lkcj/+lFbnQUTxnE1NjWQl/5Ic7R9DSlIV6qnShtvoLqrB9Qf9yPeviKTH3NofN0tw1n86+scIsuvcxE7OVxwBNUlvkHR16JAHxsQGRfz6HjPG+P0QIBkxdhfQMCt4="
+
+before_install:
+  - sudo apt-get -y install libprocps-dev
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+addons:
+    apt:
+       update: true
+    coverity_scan:
+       project:
+         name: "rjaan/procps_ptree"
+         description: "procps_ptree - shows inforamtion of executed process and task"
+       notification_email: rjaan@yandex.ru
+       build_command_prepend: "./configure"
+       build_command: "make"
+       branch_pattern: coverity_scan
+
+#eof
+
