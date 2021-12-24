@@ -1,4 +1,4 @@
-# procps_ptree - shows inforamtion of executed process and  task
+# procps_ptree - Getting the system information have contained what kind of processes and tasks are executing now
 
 <a href="https://scan.coverity.com/projects/rjaan-procps_ptree">
   <img alt="Coverity Scan Build Status"
